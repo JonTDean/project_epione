@@ -6,5 +6,13 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rocket = "=0.5.0-rc.3"
-bellman = "0.14.0"        
+rocket = { version="=0.5.0-rc.3", features = ["json", "mtls"] }
+bellman = "0.14.0"
+bls12_381 = "0.8.0"
+ff = "0.13"
+pairing = "0.23.0"
+rand = "0.8"
+sha2 = "0.10.7"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+log = "0.4.20"

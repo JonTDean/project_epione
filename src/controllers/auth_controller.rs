@@ -1,19 +1,25 @@
-use rocket::post;
-use bellman::groth16::{verify_proof, PreparedVerifyingKey, Proof};
-// Additional imports needed for zkSNARKs
-// ...
+// Import the rocket and rocket_contrib crates
+use rocket::*;
+use rocket::serde::{Serialize, Deserialize, json::Json};
+use serde_json::{json, Value};
 
-// Route to generate zkSNARK proof
-#[post("/generate")]
-pub fn generate() -> String {
-    // TODO: Define or import the generate_proof function.
-    let proof = "".to_string(); // generate_proof();
-    return proof;
+// Define a struct for the registration data
+#[derive(Serialize, Deserialize, Debug)]
+pub struct RegisterData {
+    zk_public_key: Vec<u8>,
+    mtls_certificate: Vec<u8>,
 }
 
-// Route to verify zkSNARK proof
-#[post("/verify", data = "<proof>")]
-pub fn verify(proof: String) -> String {
-    // TODO: Retrieve the prepared verifying key and public inputs to verify the proof.
-    return "Need to implement".to_string();
+// Define a function that handles the registration logic
+// It takes a Json object as a parameter and returns a Json object as a response
+#[post("/register", format = "json", data = "<register_data>")]
+pub fn register(register_data: Json<RegisterData>) -> Json<Value> {
+    // TODO: Validate and store the registration data in a database
+    // For now, just echo back the data as a confirmation
+    print!("Received registration data: {:?}", register_data);
+
+    Json(json!({
+        "status": "success",
+        "message": "Currently not implemented"
+    }))
 }
