@@ -7,9 +7,19 @@ mod auth;
 mod controllers;
 
 
+
+#[get("/debug")]
+pub fn debug() -> &'static str {
+    "Rocket is up and running!"
+}
+
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![
-        controllers::auth_controller::register
-    ])
+    rocket::build()
+        .mount("/", routes![
+            debug
+        ])
+        .mount("/auth", routes![
+            controllers::auth_controller::register
+        ])
 }
