@@ -1,6 +1,87 @@
 docs/
 
+# Rust
+##############
+# Compiled binary artifacts
+/bin/
+/target/
+**/*.rs.bk
 
-# Added by cargo
+# Cargo artifacts
+Cargo.lock
 
-/target
+# If using a build script, include target/doc/
+# doc/
+
+# Remove Cargo "meta" files
+**/.cargo/
+
+# Remove redundant .gitignore files
+**/.gitignore
+
+# Rocket .env file (might contain secrets)
+.env
+
+# Rocket upload directories (if your application has file uploads)
+/uploads/
+
+# Rustfmt backup files
+**/*.rs.bak
+
+# IDEs and tools
+##############
+# IntelliJ related files
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code directories
+.vscode/
+
+# Windows
+##############
+*.cmd
+*.exe
+*.dll
+*.bat
+*.com
+*.audio
+*.c
+*.cpp
+*.o
+*.so
+*.dylib
+*.test
+
+# Directories
+##############
+# Directories used by the OS for its own use
+[Dd]esktop/
+[Dd]ocuments/
+[Dd]ownloads/
+[Mm]usic/
+[Pp]ictures/
+[Vv]ideos/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock

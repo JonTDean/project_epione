@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"name": "mono",
+			"path": "../mono"
+		},
+		{
+			"name": "project_hygieia",
+			"path": "../project_hygieia"
+		},
+		{
+			"name": "project_epione",
+			"path": "."
+		},
+		{
+			"name": "project_machaeon",
+			"path": "../project_machaeon"
+		},
+		{
+			"name": "project_panacea",
+			"path": "../project_panacea"
+		}
+	],
+	"settings": {}
+}
