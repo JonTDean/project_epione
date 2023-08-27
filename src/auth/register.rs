@@ -3,6 +3,7 @@ use rocket::serde::json::{Json, Value};
 use serde_json::json;
 use crate::{controllers::auth_controller::RegisterData, models::User};
 use crate::services::connection::establish_pg;
+use uuid::Uuid;
 
 /// Registers a new user.
 /// Takes in the registration data and returns a JSON response indicating success or failure.
@@ -20,13 +21,13 @@ pub fn register_user(register_data: Json<RegisterData>) -> Json<Value> {
 
     // Create a new user instance
     let new_user = User {
-        id: 0, // Temporary ID, database should auto-generate this
+        id: Uuid::new_v4(),
         email: valid_email,
         pkey: register_data.pkey.clone(), // Clone the public key from the registration data
     };
 
-    // Save the user to the database and return the result
-    save_to_database(new_user)
+    // Register the user to the database and return the result
+    register_to_database(new_user)
 }
 
 /// Validates the given email address.
@@ -39,9 +40,9 @@ fn validate_email(email: &String) -> Result<String, ()> {
     }
 }
 
-/// Saves the given user to the database.
+/// Registers the given user to the database.
 /// Returns a JSON response indicating success or failure.
-fn save_to_database(new_user: User) -> Json<Value> {
+fn register_to_database(new_user: User) -> Json<Value> {
     // Import the database schema for the users table
     use crate::schema::users;
 

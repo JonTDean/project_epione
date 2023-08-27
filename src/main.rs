@@ -3,10 +3,6 @@
 extern crate serde;
 extern crate serde_json;
 
-use diesel::prelude::*;
-use diesel::r2d2::{self, ConnectionManager};
-use rocket::fairing::AdHoc;
-
 mod auth;
 mod controllers;
 mod schema;

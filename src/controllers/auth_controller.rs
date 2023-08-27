@@ -1,7 +1,7 @@
 // Import the rocket and rocket_contrib crates
 use rocket::*;
 use rocket::serde::{Serialize, Deserialize, json::Json};
-use serde_json::{json, Value};
+use serde_json::Value;
 
 use crate::auth::register::register_user;
 
@@ -16,10 +16,5 @@ pub struct RegisterData {
 // It takes a Json object as a parameter and returns a Json object as a response
 #[post("/register", format = "json", data = "<register_data>")]
 pub fn register(register_data: Json<RegisterData>) -> Json<Value> {
-    register_user(register_data);
-
-    Json(json!({
-        "status": "success",
-        "message": "User registered successfully"
-    }))
+    register_user(register_data)
 }
