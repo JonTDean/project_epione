@@ -9,7 +9,7 @@ use crate::auth::register::register_user;
 #[derive(Serialize, Deserialize, Debug)]
 pub struct RegisterData {
     pub email: String,
-    pub pkey: Vec<u8>,
+    pub proof: Vec<u8>,
 }
 
 // Define a function that handles the registration logic

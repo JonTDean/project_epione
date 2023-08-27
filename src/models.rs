@@ -1,13 +1,13 @@
-use diesel::{Queryable, prelude::Insertable};
+use diesel::{Queryable, prelude::Insertable, Identifiable};
 use rocket::serde::Serialize;
 use uuid::Uuid;
 use crate::schema::users;
 
-#[derive(Queryable, Serialize, Insertable)]
+#[derive(Queryable, Serialize, Insertable, Identifiable, Debug, PartialEq)]
 #[serde(crate = "rocket::serde")]
 #[diesel(table_name = users)]
 pub struct User {
     pub id: Uuid,
     pub email: String,
-    pub pkey: Vec<u8>,
+    pub proof: Vec<u8>,
 }

@@ -16,3 +16,4 @@ log = "0.4.20"
 env_logger = "0.10.0"
 dotenvy = "0.15.7"
 uuid = { version = "1.4.1", features = ["v4", "serde"] }
+rust_srp = "0.1.8"

@@ -5,5 +5,5 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     email VARCHAR NOT NULL UNIQUE,
-    pkey BYTEA NOT NULL
+    proof BYTEA NOT NULL
 );
