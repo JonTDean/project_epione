@@ -5,25 +5,52 @@ use crate::{controllers::auth_controller::RegisterData, models::User};
 use crate::services::connection::establish_pg;
 use uuid::Uuid;
 
+use super::zk_snarks::snark_ops::{read_params_from_file, get_prepared_vk_from_params};
+use super::zk_snarks::verifiers::verify_zk_proof;
+
 /// Registers a new user.
 /// Takes in the registration data and returns a JSON response indicating success or failure.
 pub fn register_user(register_data: Json<RegisterData>) -> Json<Value> {
     // Validate the email address
     let valid_email = match validate_email(&register_data.email) {
-        // If email is valid, return the email
         Ok(email) => email,
-        // If email is invalid, return an error response
         Err(_) => return Json(json!({
             "status": "error",
             "message": "Invalid email address"
         }))
     };
+    // Extract zk-SNARK proof and public inputs from the register_data
+    let params_result = read_params_from_file();
+    let params = match params_result {
+        Ok(p) => p,
+        Err(e) => {
+            // Handle the error, e.g., log it and exit
+            eprintln!("Failed to read parameters from file: {}", e);
+            return Json(json!({"status": "error", "message": "Failed to read zk-SNARK parameters from file"}));        
+        }
+    };
+    let pvk = get_prepared_vk_from_params(&params);
+    let proof = &register_data.proof;  // Assuming the proof is stored directly in register_data
+    let curr_public_inputs = &register_data.public_inputs;  // Similarly, extract public inputs
+    
+    // Verify the zk-SNARK proof
+    match verify_zk_proof(&pvk, &proof, curr_public_inputs) {
+        Ok(true) => {}, // The proof is valid, continue processing
+        Ok(false) => return Json(json!({
+            "status": "error",
+            "message": "Invalid zk-SNARK proof"
+        })),
+        Err(_) => return Json(json!({
+            "status": "error",
+            "message": "Error verifying zk-SNARK proof"
+        })),
+    }
 
     // Create a new user instance
     let new_user = User {
         id: Uuid::new_v4(),
         email: valid_email,
-        proof: register_data.proof.clone(), // Clone the public key from the registration data
+        proof: register_data.proof.clone(),
     };
 
     // Register the user to the database and return the result

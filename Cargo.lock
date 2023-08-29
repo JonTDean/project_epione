@@ -815,20 +815,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "jubjub"
-version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8499f7a74008aafbecb2a2e608a3e13e4dd3e84df198b604451efe93f2de6e61"
-dependencies = [
- "bitvec",
- "bls12_381",
- "ff",
- "group",
- "rand_core",
- "subtle",
-]
-
-[[package]]
 name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1162,12 +1148,11 @@ dependencies = [
  "diesel 2.1.1",
  "dotenvy",
  "env_logger",
- "jubjub",
- "lazy_static",
  "log",
  "pairing",
  "r2d2",
  "r2d2-diesel",
+ "rand",
  "rocket",
  "serde",
  "serde_json",

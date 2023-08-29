@@ -19,5 +19,4 @@ uuid = { version = "1.4.1", features = ["v4", "serde"] }
 bellman = { version="0.14.0" }
 pairing = { version="0.23.0" }
 bls12_381 = { version="0.8.0" }
-jubjub = "0.10.0"
-lazy_static = "1.4.0"
+rand = "0.8.5"

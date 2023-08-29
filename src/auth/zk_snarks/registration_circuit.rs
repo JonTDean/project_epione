@@ -3,11 +3,11 @@ use bls12_381::Scalar;
 
 use super::mimc_hash::hash_function;
 
-struct RegistrationCircuit {
+pub struct RegistrationCircuit {
     // The known hash (public input).
-    hash: Option<Scalar>,
+    pub hash: Option<Scalar>,
     // The secret password (private input).
-    password: Scalar,
+    pub password: Scalar,
 }
 
 impl Circuit<Scalar> for RegistrationCircuit {
