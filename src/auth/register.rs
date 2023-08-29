@@ -23,7 +23,7 @@ pub fn register_user(register_data: Json<RegisterData>) -> Json<Value> {
     let new_user = User {
         id: Uuid::new_v4(),
         email: valid_email,
-        pkey: register_data.pkey.clone(), // Clone the public key from the registration data
+        proof: register_data.proof.clone(), // Clone the public key from the registration data
     };
 
     // Register the user to the database and return the result

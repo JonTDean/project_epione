@@ -18,3 +18,4 @@ pub struct RegisterData {
 pub fn register(register_data: Json<RegisterData>) -> Json<Value> {
     register_user(register_data)
 }
+
