@@ -5,5 +5,7 @@ diesel::table! {
         id -> Uuid,
         email -> Varchar,
         proof -> Bytea,
+        hashed_password -> Bytea,
+        public_inputs -> Bytea,
     }
 }

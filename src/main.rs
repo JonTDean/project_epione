@@ -9,8 +9,7 @@ mod schema;
 mod models;
 mod services;
 
-use auth::zk_snarks::snark_setup::ensure_zksnark_params;
-use crate::auth::zk_snarks::snark_ops::{read_params_from_file, DebuggableParameters};
+use auth::zk_snarks::{DebuggableParameters, snark_setup::ensure_zksnark_params, snark_ops::read_params_from_file};
 
 #[get("/debug")]
 pub fn debug() -> &'static str {
@@ -23,10 +22,9 @@ fn rocket() -> _ {
 
     // Ensure zk-SNARK parameters exist
     ensure_zksnark_params();
-    println!("ZKSNARK READING: \n");
     let params = read_params_from_file().unwrap();
-    println!("{:#?}", DebuggableParameters(params));
-    print!("\n");
+    // println!("{:#?}", DebuggableParameters(params));
+    DebuggableParameters(params).save_to_files().expect("Failed to save to files");
 
     rocket::build()
         .mount("/", routes![

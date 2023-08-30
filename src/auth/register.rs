@@ -19,6 +19,7 @@ pub fn register_user(register_data: Json<RegisterData>) -> Json<Value> {
             "message": "Invalid email address"
         }))
     };
+    
     // Extract zk-SNARK proof and public inputs from the register_data
     let params_result = read_params_from_file();
     let params = match params_result {

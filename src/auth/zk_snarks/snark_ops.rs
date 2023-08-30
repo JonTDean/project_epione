@@ -1,49 +1,8 @@
-use std::{path::Path, fmt, fs::{File, create_dir_all}, io::{Read, Write}};
+use std::{path::Path, fs::{File, create_dir_all }, io::{Read, Write}};
 use bellman::groth16::{Parameters, PreparedVerifyingKey, prepare_verifying_key};
 use bls12_381::Bls12;
 
 use super::PARAMS_PATH;
-
-pub struct DebuggableParameters(pub Parameters<Bls12>);
-
-impl fmt::Debug for DebuggableParameters {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        // Extract fields from the VerifyingKey
-        let vk = &self.0.vk;
-
-        // Attempt to create representations for curve points. 
-        // This is a placeholder; the actual methods might differ.
-        // We'll attempt to use Debug for simplicity, but in practice you might need more specific methods.
-        let alpha_g1_repr = format!("{:?}", vk.alpha_g1);
-        let beta_g1_repr = format!("{:?}", vk.beta_g1);
-        let beta_g2_repr = format!("{:?}", vk.beta_g2);
-        let gamma_g2_repr = format!("{:?}", vk.gamma_g2);
-        let delta_g1_repr = format!("{:?}", vk.delta_g1);
-        let delta_g2_repr = format!("{:?}", vk.delta_g2);
-        let ic_repr = vk.ic.iter().map(|point| format!("{:?}", point)).collect::<Vec<String>>().join(", ");
-
-        writeln!(f, "Parameters<Bls12>:")?;
-        writeln!(f, "  Verification Key (vk):")?;
-        writeln!(f, "    alpha_g1: {}", alpha_g1_repr)?;
-        writeln!(f, "    beta_g1: {}", beta_g1_repr)?;
-        writeln!(f, "    beta_g2: {}", beta_g2_repr)?;
-        writeln!(f, "    gamma_g2: {}", gamma_g2_repr)?;
-        writeln!(f, "    delta_g1: {}", delta_g1_repr)?;
-        writeln!(f, "    delta_g2: {}", delta_g2_repr)?;
-        writeln!(f, "    ic: [{}]", ic_repr)?;
-
-        // Print the other fields of Parameters<Bls12>
-        writeln!(f, "  h: {:#?}", self.0.h)?;
-        writeln!(f, "  l: {:#?}", self.0.l)?;
-        writeln!(f, "  a: {:#?}", self.0.a)?;
-        writeln!(f, "  b_g1: {:#?}", self.0.b_g1)?;
-        writeln!(f, "  b_g2: {:#?}", self.0.b_g2)?;
-
-        Ok(())
-    }
-}
-
-
 
 pub fn read_params_from_file() -> Result<Parameters<Bls12>, std::io::Error> {
     // Open the file
